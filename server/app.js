@@ -2,13 +2,16 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql').graphqlHTTP;
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config({ path: './config.env' });
 
 const app = express();
 
-const PORT = 3005;
+const PORT = process.env.PORT || 3005;
+let DB = process.env.DATABASE;
 
-const DB =
-    'mongodb+srv://andreymarand:Qt8Jj94KjCRvdtlP@cluster0.koj1njd.mongodb.net/graphql-tutorial?retryWrites=true&w=majority';
+DB = DB.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
+console.log(DB);
 
 mongoose.connect(DB, {
     useNewUrlParser: true, // new parameters
