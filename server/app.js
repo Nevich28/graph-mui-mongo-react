@@ -4,6 +4,7 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
+const cors = require('cors');
 
 const app = express();
 
@@ -17,6 +18,8 @@ mongoose.connect(DB, {
     useNewUrlParser: true, // new parameters
     useUnifiedTopology: true,
 });
+
+app.use(cors());
 
 app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
 
